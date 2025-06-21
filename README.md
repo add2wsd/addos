@@ -34,6 +34,12 @@ AddOS is an alpha-stage script designed to automate the Arch Linux installation.
 - [X] Automatic file systems
 - [X] Automatic mounting
 
+## 🐧 Alternative Distro Support
+
+If you prefer Artix Linux with s6 or runit init systems over Arch Linux, a separate branch is available for this purpose. There are currently no maintainers for Dinit and OpenRC Artix or any other distros.
+
+*   **Artix s6/runit branch:** [Link to Artix Branch Here](https://github.com/add2wsd/addos/tree/artix-s6-runit)
+
 ## 🧑‍💻 Creators
 
 <p align="center">
