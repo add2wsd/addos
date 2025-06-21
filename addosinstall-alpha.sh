@@ -1,4 +1,37 @@
-echo "this is a alpha if you have this cool it prob wont work"
+#!/bin/bash
+
+# Check if the user is root
+if [ "$EUID" -ne 0 ]; then
+  # Proceed with root check failure
+  echo "Please run this script as root or using sudo."
+  echo "You may run 'sudo !!' to rerun the previous command as root."
+  exit 1
+fi
+# Proceed with root check success
+echo "Root check completed, proceeding..."
+
+# Check if the script is on Arch
+if [  ! -f /etc/arch-release ]; then
+  # Proceed with Arch check failure
+  echo "This install script is only for Arch Linux and will break other systems. Please run this in Arch Linux."
+  exit 1
+fi
+# Proceed with Arch check success
+echo "Arch Linux check completed, proceeding..."
+
+# User verification check
+read -p "This script is in Alpha, features are missing and can break. Confirmations before dangerous actions do not exist at this point and may break your system. Do you want to proceed? (y/N): " -n 1 -r
+echo # Add a newline after the prompt
+
+if [[ ! "$REPLY" =~ ^[Yy]$ ]]; then
+  # Proceed with user verification check failure
+  echo "Operation cancelled. Exiting."
+  exit 1
+fi
+
+# Proceed with user verification check success
+echo "You have been warned!"
+echo "Proceeding with the script..."
 
 loadkeys us
 
