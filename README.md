@@ -32,3 +32,15 @@ AddOS is an alpha-stage script designed to automate the Arch Linux installation.
 *   Automatic partitioning
 *   Automatic file systems
 *   Automatic mounting
+
+## 🧑‍💻 Creators
+
+<p align="center">
+  <a href="https://github.com/adevdoingdevthings">
+    <img src="https://github.com/adevdoingdevthings.png" width="100px;" alt="LandenHM profile">
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/add2wsd">
+    <img src="https://github.com/add2wsd.png" width="100px;" alt="add2wsd profile">
+  </a>
+</p>
