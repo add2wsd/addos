@@ -31,7 +31,7 @@ fi
 
 # Proceed with user verification check success
 echo "You have been warned!"
-echo "Proceeding with the script..."
+read -n 1 -s -r -p "Press any key to continue..."
 
 loadkeys us
 
