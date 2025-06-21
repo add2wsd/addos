@@ -45,3 +45,9 @@ AddOS is an alpha-stage script designed to automate the Arch Linux installation.
     <img src="https://github.com/add2wsd.png" width="100px;" alt="add2wsd profile">
   </a>
 </p>
+
+## 🛠️ Current Maintainer
+
+<p align="center">
+  <a href="https://github.com/add2wsd">add2wsd</a>
+</p>
