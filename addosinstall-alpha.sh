@@ -136,4 +136,4 @@ sleep 3
 echo "Mount:Done"
 echo "starting pactrap"
 sleep 4
-pacstrap -K /mnt base linux linux-firmware
+pacstrap /mnt base linux linux-firmware
