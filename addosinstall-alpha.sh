@@ -38,9 +38,9 @@ loadkeys us
 clear
 sleep 1.5
 lsblk
-printf "what is your disk /dev/"
+printf "What is your disk /dev/"
 read disk
-printf "disk partitoning started auto is the only option right now"
+printf "Disk partitoning has started. Auto is the only option right now."
 sleep 4
 #fdisk script for the basic partitioning
 fdisk /dev/$disk <<EOF
@@ -62,7 +62,7 @@ EOF
 #Next part of the install mkfs
 clear
 #This is a echo insted of a printf because it looks better when printed out
-echo "Your disks are partitiond"
+echo "Auto Partitioning is complete..."
 sleep 1
 lsblk
 
@@ -101,7 +101,7 @@ lsblk
 sleep 6
 clear
 #If else for wifi if connection is needed eg vm or ethernet 
-printf "enable wif? type n if you have ehternet or on a vm (y/n):"
+printf "Enable Wifi? Type N if you have ethernet or are using a virtual machine with network passthrough. (y/N):"
 read neednetwork
 if [[ "$neednetwork" =~ ^[Yy]$ ]];
 then
