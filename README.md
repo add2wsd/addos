@@ -1,4 +1,9 @@
-# AddOS - Arch Linux Install Script (Alpha)
+<h1 align="center">AddOS - Install Script</h1>
+<p align="center">
+  <img src="https://img.shields.io/badge/Version-Arch_Linux-blue" alt="Badge">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/Status-Alpha-orange" alt="Badge 2"
+</p>
 
 AddOS is an alpha-stage script designed to automate the Arch Linux installation.
 
@@ -9,6 +14,7 @@ AddOS is an alpha-stage script designed to automate the Arch Linux installation.
 
 *   Live ISO Arch Linux environment.
 *   Root privileges to run the script.
+*   USB to execute the script, or Wi-Fi to wget.
 
 ## 🚀 Usage
 
