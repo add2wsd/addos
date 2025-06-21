@@ -15,7 +15,7 @@ AddOS is an alpha-stage script designed to automate the Arch Linux installation.
 *   Live ISO Arch Linux environment.
 *   Root privileges to run the script.
 *   USB to execute the script, or Wi-Fi to wget.
-*   Only avalibale for amd based systems ot this time nvidea support will be here in the future
+*   Only avalibale for amd based systems at this time nvidea support will be here in the future
 
 ## 🚀 Usage
 
