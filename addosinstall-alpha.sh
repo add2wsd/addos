@@ -38,11 +38,11 @@ loadkeys us
 clear
 sleep 1.5
 lsblk
-printf "What is your disk /dev/"
+printf "Enter the disk name (e.g. sda for /dev/sda): "
 read disk
 printf "Disk partitoning has started. Auto is the only option right now."
 sleep 4
-#fdisk script for the basic partitioning
+# fdisk script for the basic partitioning
 fdisk /dev/$disk <<EOF
 g
 n
@@ -59,9 +59,9 @@ n
 
 w
 EOF
-#Next part of the install mkfs
+# Next part of the install: mkfs
 clear
-#This is a echo insted of a printf because it looks better when printed out
+# This is an echo instead of printf because it looks better when displayed.
 echo "Auto Partitioning is complete..."
 sleep 1
 lsblk
@@ -70,8 +70,8 @@ lsblk
 printf "/dev/$disk"
 sleep 2
 clear
-printf "starting mkfs"
-#partitoning number
+printf "Starting mkfs..."
+# Partitoning number
 str1="1"
 str2="2"
 str3="3"
@@ -83,10 +83,10 @@ mkfs.ext4 -F /dev/$disk$str3
 
 clear
 
-printf "mkfs done"
+printf "mkfs is complete."
 sleep 4
 clear
-printf "attempting mount"
+printf "Attempting mount..."
 
 mount /dev/$disk$str3 /mnt
 
@@ -95,45 +95,45 @@ mount --mkdir /dev/$disk$str1 /mnt/boot
 swapon /dev/$disk$str2
 sleep 2
 clear
-echo "mount done"
-echo "there is a 6-second delay the script is still running"
+echo "Mount complete..."
+echo "There is a 6-second delay; the script is still running."
 lsblk
 sleep 6
 clear
 #If else for wifi if connection is needed eg vm or ethernet 
-printf "Enable Wifi? Type N if you have ethernet or are using a virtual machine with network passthrough. (y/N):"
+printf "Enable Wi-Fi? Type N if you have ethernet or are using a virtual machine with network passthrough. (y/N):"
 read neednetwork
 if [[ "$neednetwork" =~ ^[Yy]$ ]];
 then
 
-#Next up is networking
+# Next up is networking
 ip link
-printf "pick your network interface:"
+printf "Pick your network interface:"
 read wifi
 
-#Show nwteorks
+# Show networks
 iwctl station $wifi scan
 iwctl station $wifi get-networks
 
-#Find network and prepare connect
-printf "whats your network ssid double check this:"
+# Find network and prepare connect
+printf "What's your network SSID? Double-check this:"
 read network
-printf "whats your network password:"
+printf "What's your network password:"
 read netpass
 
-#iwctl connects to network
+# iwctl connects to network
 iwctl station $wifi connect $network --passphrase $netpass
 
 fi
 clear
-echo "sysinstall not ready yet"
+echo "Sysinstall is not ready yet."
 
-#There is no benifit to this part just looks nice
-echo "Disk parted:Done"
+# There is no benifit to this part; just looks nice.
+echo "Disk partition: Done."
 sleep 2
-echo "mkfs:Done"
+echo "mkfs: Done."
 sleep 3
-echo "Mount:Done"
-echo "starting pactrap"
+echo "Mount: Done."
+echo "Starting pactrap..."
 sleep 4
 pacstrap /mnt base linux linux-firmware
