@@ -93,9 +93,47 @@ mount /dev/$disk$str3 /mnt
 mount --mkdir /dev/$disk$str1 /mnt/boot
 
 swapon /dev/$disk$str2
-
-printf "mount done"
-sleep 3
+sleep 2
 clear
+echo "mount done"
+echo "there is a 6-second delay the script is still running"
+lsblk
+sleep 6
+clear
+#If else for wifi if connection is needed eg vm or ethernet 
+printf "enable wif? type n if you have ehternet or on a vm (y/n):"
+read neednetwork
+if [[ "$neednetwork" =~ ^[Yy]$ ]];
+then
 
+#Next up is networking
+ip link
+printf "pick your network interface:"
+read wifi
 
+#Show nwteorks
+iwctl station $wifi scan
+iwctl station $wifi get-networks
+
+#Find network and prepare connect
+printf "whats your network ssid double check this:"
+read network
+printf "whats your network password:"
+read netpass
+
+#iwctl connects to network
+iwctl station $wifi connect $network --passphrase $netpass
+
+fi
+clear
+echo "sysinstall not ready yet"
+
+#There is no benifit to this part just looks nice
+echo "Disk parted:Done"
+sleep 2
+echo "mkfs:Done"
+sleep 3
+echo "Mount:Done"
+echo "starting pactrap"
+sleep 4
+pacstrap -K /mnt base linux linux-firmware
