@@ -84,7 +84,8 @@ mkfs.ext4 -F /dev/$disk$str3
 clear
 
 printf "mkfs done"
-sleep 2
+sleep 4
+clear
 printf "attempting mount"
 
 mount /dev/$disk$str3 /mnt
