@@ -14,12 +14,12 @@ AddOS is an alpha-stage script designed to automate the Arch Linux installation.
 
 1.  **Download the script:**
     ```bash
-    wget https://github.com/add2wsd/addos/addos.sh
-    chmod +x addos.sh
+    wget https://github.com/add2wsd/addos/addosinstall-alpha.sh
+    chmod +x addosinstall-alpha.sh
     ```
 2.  **Run the script as root:**
     ```bash
-    sudo ./addos.sh
+    sudo ./addosinstall-alpha.sh
     ```
 3.  **Confirm proceeding:** The script will prompt you to confirm due to its alpha status and potential for system breakage. Type `y` to continue.
 
