@@ -25,13 +25,14 @@ AddOS is an alpha-stage script designed to automate the Arch Linux installation.
 
 ## ✨ Features (Current Alpha)
 
-*   Checks for root privileges.
-*   Verifies the operating system is Arch Linux.
-*   Provides a clear warning about its alpha status and potential risks before proceeding.
-*   Disk selection
-*   Automatic partitioning
-*   Automatic file systems
-*   Automatic mounting
+- [X] Checks for root privileges.
+- [X] Verifies the operating system is Arch Linux.
+- [ ] Seperate branch for Artix Linux.
+- [X] Provides a clear warning about its alpha status and potential risks before proceeding.
+- [X] Disk selection
+- [X] Automatic partitioning
+- [X] Automatic file systems
+- [X] Automatic mounting
 
 ## 🧑‍💻 Creators
 
