@@ -51,8 +51,8 @@ Development path
 - [X] Disk mounting
 - [X] Quick WI-FI setup
 - [X] Pacstrap base pkgs
-- [ ] fstab setup
-- [ ] arch-chroot system setup
+- [X] fstab setup
+- [X] arch-chroot system setup
 - [ ] Locales set up script
 - [ ] /etc files
 - [ ] ramfs
