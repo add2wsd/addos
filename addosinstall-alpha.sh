@@ -35,6 +35,11 @@ read -n 1 -s -r -p "Press any key to continue..."
 
 loadkeys us
 
+cd addos
+chmod +x addos-stage2-alpha.sh
+cd
+prinf "enabliling stage2"
+sleep 5
 clear
 sleep 1.5
 lsblk
@@ -134,6 +139,21 @@ sleep 2
 echo "mkfs: Done."
 sleep 3
 echo "Mount: Done."
+echo "Grabing pacman repos"
+pacman -Sy pacman-contrib
+sleep 5
+rankmirrors -n 6 /etc/pacman.d/mirrorlist
+cat /etc/pacman.d/mirrorlist
+sleep 4
+clear
 echo "Starting pactrap..."
 sleep 4
 pacstrap /mnt base linux linux-firmware
+
+genfstab -U /mnt >> /mnt/etc/fstab
+clear
+printf "Chrooting into installed system."
+cd addos/
+cp addos-stage2-alpha.sh /mnt/mnt
+cd
+arch-chroot /mnt /mnt/addos-stage2-alpha.sh 
