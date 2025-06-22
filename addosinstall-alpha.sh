@@ -38,7 +38,7 @@ loadkeys us
 cd addos
 chmod +x addos-stage2-alpha.sh
 cd
-prinf "enabliling stage2"
+printf "enabliling stage2"
 sleep 5
 clear
 sleep 1.5
