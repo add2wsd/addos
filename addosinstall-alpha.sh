@@ -163,14 +163,8 @@ EOF
   clear
   printf "Chrooting into installed system."
 
-  # Create /mnt/tmp directory if it doesn't exist
-#  mkdir -p /mnt/tmp
-#  cp "$0" /mnt/tmp/addosinstall-alpha.sh
-#  chmod +x /mnt/tmp/addosinstall-alpha.sh
-#  arch-chroot /mnt /tmp/addosinstall-alpha.sh --chrooted
-#cd addos
+  # Create /mnt/mnt for chroot
 cp addosinstall-alpha.sh /mnt/mnt
-#cd /root/
 chmod +x /mnt/mnt/addosinstall-alpha.sh
 arch-chroot /mnt /mnt/addosinstall-alpha.sh --chrooted
   # --- PHASE 1 LOGIC ENDS HERE ---
@@ -203,5 +197,22 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
   rm -f /etc/locale.gen
   echo "$UTF8" >> /etc/locale.gen
   cat /etc/locale.gen
+  sleep 3
+  clear
+  locale-gen
+  echo "What is your keybord example (e.g., us)"
+  read keymap
+  clear
+  echo "What is your hostname"
+  read hostname
+  clear
+  echo "LANG=$UTF8" >> /etc/locale.conf
+  echo "KEYMAP=$keymap" >> /etc/vconsole.conf
+  echo "$hostname" >> /etc/hostname
+  printf "/etc/ files created"
+  sleep 3
+  clear
+  mkinitcpio -P
+  
 
 fi
