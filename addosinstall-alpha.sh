@@ -164,11 +164,13 @@ EOF
   printf "Chrooting into installed system."
 
   # Create /mnt/tmp directory if it doesn't exist
-  mkdir -p /mnt/tmp
-  cp "$0" /mnt/tmp/addosinstall-alpha.sh
-  chmod +x /mnt/tmp/addosinstall-alpha.sh
-  arch-chroot /mnt /tmp/addosinstall-alpha.sh --chrooted
-
+#  mkdir -p /mnt/tmp
+#  cp "$0" /mnt/tmp/addosinstall-alpha.sh
+#  chmod +x /mnt/tmp/addosinstall-alpha.sh
+#  arch-chroot /mnt /tmp/addosinstall-alpha.sh --chrooted
+cp /root/addos/addosinstall-alpha.sh /mnt/mnt
+chmod +x /mnt/mnt/addosinstall-alpha.sh
+arch-chroot /mnt /mnt/addosinstall-alpha.sh --chrooted
   # --- PHASE 1 LOGIC ENDS HERE ---
 fi
 
