@@ -191,11 +191,11 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
 
   # Set locale
   printf "What is your UTF-8 locale (e.g., en_CA.UTF-8): "
-  read UTF8
+  read LOCALE_TO_ENABLE
 
   # Remove existing locale.gen and add the new one
-  file=/etc/locale.gen
-  sed -i "s/#$UTF8/UTF8/g" "$file"
+  echo "Enabling $LOCALE_TO_ENABLE in /etc/locale.gen..."
+  sed -i "/^#\s*${LOCALE_TO_ENABLE}/s/^#\s*//" /etc/locale.gen
   cat /etc/locale.gen
   sleep 3
   clear
