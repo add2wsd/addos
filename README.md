@@ -43,7 +43,7 @@ AddOS is an alpha-stage script designed to automate the Arch Linux installation.
 - [X] WI-FI setup if needed
 - [X] Install base packages with pacstrap
 
-### Development path
+Development path
 - [ ] Disk warning
 - [X] Disk selection
 - [ ] Partition style
