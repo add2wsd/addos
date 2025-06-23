@@ -169,10 +169,10 @@ EOF
 #  chmod +x /mnt/tmp/addosinstall-alpha.sh
 #  arch-chroot /mnt /tmp/addosinstall-alpha.sh --chrooted
 #cd addos
-#cp addosinstall-alpha.sh /mnt/mnt
+cp addosinstall-alpha.sh /mnt/mnt
 #cd /root/
-#chmod +x /mnt/mnt/addosinstall-alpha.sh
-#arch-chroot /mnt /mnt/addosinstall-alpha.sh --chrooted
+chmod +x /mnt/mnt/addosinstall-alpha.sh
+arch-chroot /mnt /mnt/addosinstall-alpha.sh --chrooted
   # --- PHASE 1 LOGIC ENDS HERE ---
 fi
 
