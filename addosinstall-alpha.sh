@@ -194,8 +194,8 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
   read UTF8
 
   # Remove existing locale.gen and add the new one
-  rm -f /etc/locale.gen
-  echo "$UTF8" >> /etc/locale.gen
+  file=/etc/locale.gen
+  sed -i "s/#$UTF8/UTF8/g" "$file"
   cat /etc/locale.gen
   sleep 3
   clear
