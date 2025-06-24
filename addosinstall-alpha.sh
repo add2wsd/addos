@@ -45,8 +45,7 @@ if [[ "$_run_phase2_flag" == "false" ]]; then
   read -n 1 -s -r -p "Press any key to continue..."
 
   loadkeys us
-
-  printf "Enabling stage2"
+  # Disk selection
   sleep 5
   clear
   sleep 1.5
@@ -73,14 +72,11 @@ n
 w
 EOF
   # Next part of the install: mkfs
-  clear
   # This is an echo instead of printf because it looks better when displayed.
+  clear
   echo "Auto Partitioning is complete..."
   sleep 1
   lsblk
-
-  # This is only here for the alpha and will be cut before release
-  printf "/dev/$disk"
   sleep 2
   clear
   printf "Starting mkfs..."
@@ -191,15 +187,15 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
 
   # Set locale
   printf "What is your UTF-8 locale (e.g., en_CA.UTF-8): "
-  read LOCALE_TO_ENABLE
+  read UTF8
 
-  # Remove existing locale.gen and add the new one
-  echo "Enabling $LOCALE_TO_ENABLE in /etc/locale.gen..."
-  sed -i "/^#\s*${LOCALE_TO_ENABLE}/s/^#\s*//" /etc/locale.gen
-  cat /etc/locale.gen
+  # Patch locale
+  echo "Enabling $UTF8 in /etc/locale.gen..."
+  sed -i "/^#\s*${UTF8}/s/^#\s*//" /etc/locale.gen
   sleep 3
   clear
   locale-gen
+  
   echo "What is your keybord example (e.g., us)"
   read keymap
   clear
@@ -212,6 +208,7 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
   printf "/etc/ files created"
   sleep 3
   clear
+  # Mkinitcpio
   mkinitcpio -P
   
 
