@@ -135,7 +135,6 @@ EOF
 
   fi
   clear
-  echo "Sysinstall is not ready yet."
 
   # There is no benifit to this part; just looks nice.
   echo "Disk partition: Done."
@@ -163,6 +162,10 @@ cp addosinstall-alpha.sh /mnt/mnt
 chmod +x /mnt/mnt/addosinstall-alpha.sh
 arch-chroot /mnt /mnt/addosinstall-alpha.sh --chrooted
   # --- PHASE 1 LOGIC ENDS HERE ---
+#exit and reboot should comence after stage2 aka chroot
+umount -R /mnt
+reboot
+
 fi
 
 # --- PHASE 2 LOGIC STARTS HERE ---
@@ -209,6 +212,23 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
   clear
   # Mkinitcpio
   mkinitcpio -P
-  
+  clear
+
+  #Grub install and .cfg file
+  echo "Grub install started..."
+  pacman -S grub efibootmgr
+  sleep 4
+  grub-install --target=x86_64-efi --efi-directory=esp --bootloader-id=GRUB
+  sleed 2
+  grub-mkconfig -o /boot/grub/grub.cfg
+  clear
+
+  #rootpass with passwd
+  printf "Root pass"
+  read rootpass
+  passwd <<EOF
+  $rootpass
+  $rootpass
+EOF
 
 fi
