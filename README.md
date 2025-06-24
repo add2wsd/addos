@@ -43,7 +43,7 @@ AddOS is an installation script that creates a customized Arch Linux derivative,
             ```
         5.  Make the script executable:
             ```bash
-            chmod +x addosinstall-beta.sh
+            chmod +x addosinstall.sh
             ```
 
 2.  **Run the script as root:**
