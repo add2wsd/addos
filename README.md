@@ -1,8 +1,16 @@
 <h1 align="center">AddOS - Install Script</h1>
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-Arch_Linux-blue" alt="Badge">
+  <img src="https://img.shields.io/badge/base-Arch_Linux-blue" alt="Base">
     &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://img.shields.io/badge/Status-Beta-orange" alt="Badge 2"
+  <img src="https://img.shields.io/badge/status-Beta-yellow" alt="Status">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://img.shields.io/github/v/release/add2wsd/addos?include_prereleases" alt="Latest release">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://img.shields.io/github/license/add2wsd/addos" alt="License">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://img.shields.io/github/stars/add2wsd/addos" alt="GitHub Stars">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://img.shields.io/github/last-commit/add2wsd/addos" alt="Last Commit">
 </p>
 
 AddOS is a script designed to automate the Arch Linux installation.
