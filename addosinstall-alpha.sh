@@ -217,14 +217,14 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
   #Grub install and .cfg file
   echo "Grub install started..."
   pacman -S grub efibootmgr
-  sleep 4
-  grub-install --target=x86_64-efi --efi-directory=esp --bootloader-id=GRUB
-  sleed 2
+  sleep 3
+  grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+  sleed 3
   grub-mkconfig -o /boot/grub/grub.cfg
   clear
 
   #rootpass with passwd
-  printf "Root pass"
+  printf "Root password:"
   read rootpass
   passwd <<EOF
   $rootpass
