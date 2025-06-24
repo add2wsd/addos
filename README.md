@@ -2,7 +2,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Version-Arch_Linux-blue" alt="Badge">
     &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://img.shields.io/badge/Status-Alpha-orange" alt="Badge 2"
+  <img src="https://img.shields.io/badge/Status-Beta-orange" alt="Badge 2"
 </p>
 
 AddOS is an alpha-stage script designed to automate the Arch Linux installation.
