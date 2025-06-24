@@ -1,16 +1,16 @@
 <h1 align="center">AddOS - Install Script</h1>
 <p align="center">
-  <img src="https://img.shields.io/badge/base-Arch_Linux-blue" alt="Base">
+  <a href="https://github.com/add2wsd/addos/tree/main"><img src="https://img.shields.io/badge/base-Arch_Linux-blue" alt="Base"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://img.shields.io/badge/status-Beta-yellow" alt="Status">
+  <a href="https://github.com/add2wsd/addos"><img src="https://img.shields.io/badge/status-Beta-yellow" alt="Status"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://img.shields.io/github/v/release/add2wsd/addos?include_prereleases" alt="Latest release">
+  <a href="https://github.com/add2wsd/addos/releases"><img src="https://img.shields.io/github/v/release/add2wsd/addos?include_prereleases" alt="Latest release"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://img.shields.io/github/license/add2wsd/addos" alt="License">
+  <a href="https://github.com/add2wsd/addos/blob/main/LICENSE"><img src="https://img.shields.io/github/license/add2wsd/addos" alt="License"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://img.shields.io/github/stars/add2wsd/addos" alt="GitHub Stars">
+  <a href="https://github.com/add2wsd/addos/stargazers"><img src="https://img.shields.io/github/stars/add2wsd/addos" alt="GitHub Stars"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://img.shields.io/github/last-commit/add2wsd/addos" alt="Last Commit">
+  <a href="https://github.com/add2wsd/addos/commits/main"><img src="https://img.shields.io/github/last-commit/add2wsd/addos" alt="Last Commit"></a>
 </p>
 
 AddOS is a script designed to automate the Arch Linux installation.
