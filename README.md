@@ -8,7 +8,7 @@
 AddOS is an alpha-stage script designed to automate the Arch Linux installation.
 
 > [!WARNING]
-> This script is in its early alpha phase. Features are missing, and it can potentially break your system. Confirmations before dangerous actions do not exist at this point. **Use at your own risk.**
+> This script is in its beta phase. Features are missing, and it can potentially break your system. Confirmations before dangerous actions still do not exist at this point. **Use at your own risk.**
 
 ## 📋 Requirements
 
@@ -23,27 +23,27 @@ AddOS is an alpha-stage script designed to automate the Arch Linux installation.
 
     *   **Online Method (requires internet connection on the Arch ISO USB):**
         ```bash
-        wget https://github.com/add2wsd/addos/addosinstall-alpha.sh
+        wget https://github.com/add2wsd/addos/addosinstall-beta.sh
         chmod +x addosinstall-alpha.sh
         ```
     *   **Offline Method (using Arch ISO USB):**
-        1.  **On your current computer:** Download the `addosinstall-alpha.sh` script from the GitHub repository.
-        2.  Copy this script file directly to the **root directory** of your Arch Linux installation USB drive (the same drive you'll boot from).
-        3.  **On the target computer:** Boot your computer from the Arch Linux installation USB.
-        4.  Once in the Arch Linux live environment, navigate to the USB's root directory, which is typically mounted at `/run/archiso/bootmnt`:
+        1.  **On your current computer:** Download the `addosinstall-beta.sh` script from the GitHub repository.
+        3.    Copy this script file directly to the **root directory** of your Arch Linux installation USB drive (the same drive you'll boot from).
+        4.  **On the target computer:** Boot your computer from the Arch Linux installation USB.
+        5.  Once in the Arch Linux live environment, navigate to the USB's root directory, which is typically mounted at `/run/archiso/bootmnt`:
             ```bash
             cd /run/archiso/bootmnt
             ```
-        5.  Make the script executable:
+        6.  Make the script executable:
             ```bash
-            chmod +x addosinstall-alpha.sh
+            chmod +x addosinstall-beta.sh
             ```
 
 2.  **Run the script as root:**
     ```bash
-    sudo ./addosinstall-alpha.sh
+    sudo ./addosinstall-beta.sh
     ```
-3.  **Confirm proceeding:** The script will prompt you to confirm due to its alpha status and potential for system breakage. Type `y` to continue.
+3.  **Confirm proceeding:** The script will prompt you to confirm due to its beta status and potential for system breakage. Type `y` to continue.
 
 ## ✨ Features (Current Alpha)
 
@@ -68,11 +68,11 @@ AddOS is an alpha-stage script designed to automate the Arch Linux installation.
 - [X] Pacstrap base pkgs
 - [X] fstab setup
 - [X] arch-chroot system setup
-- [ ] Locales set up script
-- [ ] /etc files
-- [ ] ramfs
+- [X] Locales set up script
+- [X] /etc/ files
+- [X] ramfs
 - [ ] Extra pkgs 
-- [ ] Password and user creation
+- [X] Password and user creation
 
 ## 🧑‍💻 Creators
 
