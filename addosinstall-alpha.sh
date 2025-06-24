@@ -52,7 +52,7 @@ if [[ "$_run_phase2_flag" == "false" ]]; then
   lsblk
   printf "Enter the disk name (e.g. sda for /dev/sda): "
   read disk
-  printf "Disk partitoning has started. Auto is the only option right now."
+  echo "Disk partitoning has started. Auto is the only option right now."
   sleep 4
   # fdisk script for the basic partitioning
   fdisk /dev/"$disk" <<EOF
