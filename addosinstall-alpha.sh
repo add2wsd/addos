@@ -46,7 +46,6 @@ if [[ "$_run_phase2_flag" == "false" ]]; then
 
   loadkeys us
   # Disk selection
-  sleep 5
   clear
   sleep 1.5
   lsblk
