@@ -5,17 +5,16 @@
   <img src="https://img.shields.io/badge/Status-Beta-orange" alt="Badge 2"
 </p>
 
-AddOS is an alpha-stage script designed to automate the Arch Linux installation.
+AddOS is a script designed to automate the Arch Linux installation.
 
 > [!WARNING]
-> This script is in its beta phase. Features are missing, and it can potentially break your system. Confirmations before dangerous actions still do not exist at this point. **Use at your own risk.**
+> This script is in its beta phase. Features are missing, and it can potentially break your system. Confirmations before dangerous actions do not exist at this point. **Use at your own risk.**
 
 ## 📋 Requirements
 
 *   Live ISO Arch Linux environment.
 *   Root privileges to run the script.
 *   USB to execute the script, or Wi-Fi to wget.
-*   Only avalibale for amd based systems at this time nvidea support will be here in the future
 
 ## 🚀 Usage
 
@@ -23,25 +22,25 @@ AddOS is an alpha-stage script designed to automate the Arch Linux installation.
 
     *   **Online Method (requires internet connection on the Arch ISO USB):**
         ```bash
-        wget https://github.com/add2wsd/addos/addosinstall-beta.sh
-        chmod +x addosinstall-alpha.sh
+        wget https://github.com/add2wsd/addos/releases/download/latest/addosinstall.sh
+        chmod +x addosinstall.sh
         ```
     *   **Offline Method (using Arch ISO USB):**
-        1.  **On your current computer:** Download the `addosinstall-beta.sh` script from the GitHub repository.
-        3.    Copy this script file directly to the **root directory** of your Arch Linux installation USB drive (the same drive you'll boot from).
-        4.  **On the target computer:** Boot your computer from the Arch Linux installation USB.
-        5.  Once in the Arch Linux live environment, navigate to the USB's root directory, which is typically mounted at `/run/archiso/bootmnt`:
+        1.  **On your current computer:** Download the `addosinstall.sh` script from the [Releases tab](https://github.com/add2wsd/addos/releases).
+        2.    Copy this script file directly to the **root directory** of your Arch Linux installation USB drive (the same drive you'll boot from).
+        3.  **On the target computer:** Boot your computer from the Arch Linux installation USB.
+        4.  Once in the Arch Linux live environment, navigate to the USB's root directory, which is typically mounted at `/run/archiso/bootmnt`:
             ```bash
             cd /run/archiso/bootmnt
             ```
-        6.  Make the script executable:
+        5.  Make the script executable:
             ```bash
             chmod +x addosinstall-beta.sh
             ```
 
 2.  **Run the script as root:**
     ```bash
-    sudo ./addosinstall-beta.sh
+    sudo ./addosinstall.sh
     ```
 3.  **Confirm proceeding:** The script will prompt you to confirm due to its beta status and potential for system breakage. Type `y` to continue.
 
