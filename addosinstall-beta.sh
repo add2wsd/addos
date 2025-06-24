@@ -213,8 +213,14 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
   # Mkinitcpio
   mkinitcpio -P
   clear
-
+  #extra pkg install
+  echo "additional pakages are going to install like: sudo networkmanager vim and ufw"
+  printf "additional pakages you want installed: "
+  read extra
+  pacman -S sudo networkmanager vim ufw $extra
+  
   #Grub install and .cfg file
+  clear
   echo "Grub install started..."
   pacman -S grub efibootmgr
   clear
@@ -222,12 +228,18 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
   grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
   sleed 3
   grub-mkconfig -o /boot/grub/grub.cfg
-  #clear
+  clear
 
   #rootpass with passwd
-  printf "Root password:"
+  echo "Root password:"
   passwd
-  sleep 4
+  sleep 1
   clear
+
+  #adduser and passwd for that user
+  printf "Username for user:"
+  read user
+  useradd -m -G wheel -s /bin/bash $user
+  passwd $user
 
 fi
