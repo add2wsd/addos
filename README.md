@@ -93,6 +93,12 @@ AddOS is a script designed to automate the Arch Linux installation.
   </a>
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/github/commit-activity/t/add2wsd/addos?authorFilter=adevdoingdevthings&label=LandenHM%20commits" alt="LandenHM commits">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://img.shields.io/github/commit-activity/t/add2wsd/addos?authorFilter=add2wsd&label=add2wsd%20commits" alt="add2wsd commits">
+</p>
+
 ## 🛠️ Current Maintainer
 
 <p align="center">
