@@ -226,10 +226,8 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
 
   #rootpass with passwd
   printf "Root password:"
-  read rootpass
-  passwd <<EOF
-  $rootpass
-  $rootpass
-EOF
-sleep 10
+  passwd
+  sleep 4
+  clear
+
 fi
