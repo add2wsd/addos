@@ -1,4 +1,4 @@
-<h1 align="center">AddOS - Install Script</h1>
+<h1 align="center">AddOS - Linux 'Distro'</h1>
 <p align="center">
   <a href="https://github.com/add2wsd/addos/tree/main"><img src="https://img.shields.io/badge/base-Arch_Linux-blue?style=flat-square" alt="Base"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -13,10 +13,10 @@
   <a href="https://github.com/add2wsd/addos/commits/main"><img src="https://img.shields.io/github/last-commit/add2wsd/addos?style=flat-square" alt="Last Commit"></a>
 </p>
 
-AddOS is a script designed to automate the Arch Linux installation.
+AddOS is an installation script that creates a customized Arch Linux derivative, just because Arch considers installation scripts that are not ArchInstall a derivative of Arch.
 
 > [!WARNING]
-> This script is in its beta phase. Features are missing, and it can potentially break your system. Confirmations before dangerous actions do not exist at this point. **Use at your own risk.**
+> This installer is in its beta phase. Features are missing, and it can potentially break your system. Confirmations before dangerous actions do not exist at this point. **Use at your own risk.**
 
 ## 📋 Requirements
 
