@@ -41,7 +41,16 @@ if [[ "$_run_phase2_flag" == "false" ]]; then
   fi
 
   # Proceed with user verification check success
-  echo "You have been warned!"
+  clear
+  echo "+==============================================+"
+  echo "|         _    ____  ____                      |"
+  echo "|        / \  |  _ \|  _ \        ___  ___     |"
+  echo "|       / _ \ | | | | | | |_____ / _ \/ __|    |"
+  echo "|      / ___ \| |_| | |_| |_____| (_) \__ \    |"
+  echo "|     /_/   \_\____/|____/       \___/|___/    |"
+  echo "| Owned and maintained by add2wd               |"
+  echo "| With the help of LandenHM                    |"
+  echo "+==============================================+"
   read -n 1 -s -r -p "Press any key to continue..."
 
   loadkeys us
