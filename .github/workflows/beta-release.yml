@@ -1,0 +1,70 @@
+name: Create Beta Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine next version and gather release notes
+        id: version_notes
+        run: |
+          LATEST_TAG=$(git tag --list "v*-beta" --sort="-v:refname" | head -n 1)
+          
+          NEXT_MAJOR=0
+          NEXT_MINOR=1
+          RELEASE_NOTES=""
+
+          if [ -z "$LATEST_TAG" ]; then
+            RELEASE_NOTES=$(git log --pretty=format:"- %h %s")
+          else
+            CURRENT_VERSION_PARTS=$(echo "$LATEST_TAG" | sed -E 's/v([0-9]+)\.([0-9]+)-beta/\1 \2/')
+            NEXT_MAJOR=$(echo "$CURRENT_VERSION_PARTS" | awk '{print $1}')
+            CURRENT_MINOR=$(echo "$CURRENT_VERSION_PARTS" | awk '{print $2}')
+            NEXT_MINOR=$((CURRENT_MINOR + 1))
+
+            RELEASE_NOTES=$(git log --pretty=format:"- %h %s" "${LATEST_TAG}"..HEAD)
+            if [ -z "$RELEASE_NOTES" ]; then
+              RELEASE_NOTES="No new commits since ${LATEST_TAG}."
+            fi
+          fi
+
+          NEXT_TAG="v${NEXT_MAJOR}.${NEXT_MINOR}-beta"
+
+          echo "NEXT_TAG=$NEXT_TAG" >> $GITHUB_ENV
+          echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+          echo "$RELEASE_NOTES" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Prepare release asset
+        run: |
+          if [ -f addosinstall-beta.sh ]; then
+            cp addosinstall-beta.sh addosinstall.sh
+          else
+            echo "Error: addosinstall-beta.sh not found!"
+            exit 1
+          fi
+
+      - name: Create Pre-release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.NEXT_TAG }}
+          name: Release ${{ env.NEXT_TAG }}
+          body: |
+            This is a pre-release version.
+            
+            Changes:
+            ${{ env.RELEASE_NOTES }}
+          prerelease: true
+          files: addosinstall.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
