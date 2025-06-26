@@ -56,14 +56,28 @@ if [[ "$_run_phase2_flag" == "false" ]]; then
   loadkeys us
   # Disk selection
   clear
-  sleep 1.5
-  lsblk
-  printf "Enter the disk name (e.g. sda for /dev/sda): "
-  read disk
+  echo "WARNING BOTH OPTIONS WILL ERASE DATA MAKE SURE THAT ALL INPORTANT DATA IS BACKED UP OFF BEFOR CONTINUING 
+  WE ARE NOT LYABLE FOR DATA LOSS"
+  echo "there are 2 options for disk selection. 
+  (1): Pick a disk and format style 
+  (2): Wipe a disk for use"
+  read diskopti
+  if [$diskopti = 1]
+    then
+      lsblk
+      printf "Enter the disk name (e.g. sda for /dev/sda):"
+      read diskname
+    else
+      echo "disk wipe not done yet :("
+      sleep 3
+      clear
+      exit
+    fi
+    
   echo "Disk partitoning has started. Auto is the only option right now."
   sleep 4
   # fdisk script for the basic partitioning
-  fdisk /dev/"$disk" <<EOF
+  fdisk /dev/"$diskname" <<EOF
 g
 n
 
