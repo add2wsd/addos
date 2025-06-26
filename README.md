@@ -53,7 +53,7 @@ AddOS is an installation script that creates a customized Arch Linux derivative,
     ```
 3.  **Confirm proceeding:** The script will prompt you to confirm due to its beta status and potential for system breakage. Type `y` to continue.
 
-## ✨ Features (Current Alpha)
+## ✨ Features (Current Beta)
 
 - [X] Checks for root privileges.
 - [X] Verifies the operating system is Arch Linux.
