@@ -62,13 +62,13 @@ if [[ "$_run_phase2_flag" == "false" ]]; then
   (1): Pick a disk and format style 
   (2): Wipe a disk for use"
   read diskopti
-  if ["$diskopti" == "1"]
+  if ["$diskopti" == "1"];
     then
       lsblk
       printf "Enter the disk name (e.g. sda for /dev/sda):"
       read diskname
     else
-      echo "disk wipe not done yet :("
+      printf "disk wipe not done yet :("
       sleep 3
       clear
       exit
