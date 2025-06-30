@@ -9,8 +9,32 @@ else
   _run_phase2_flag=false
 fi
 
-# --- PHASE 1 LOGIC STARTS HERE ---
-if [[ "$_run_phase2_flag" == "false" ]]; then
+# --- PHASE 1 & 3 LOGIC STARTS HERE ---
+if [ -f /phase3/triger.txt ]; then
+printf "phase 3 not done yet but soon :("
+#start on system boot
+systemctl enable ufw
+systemctl enable NetworkManager
+
+#ufw quick config
+ufw default deny incoming
+ufw default allow outgoing
+ufw enable
+
+#turn networkmanager on
+systemctl start NetworkManager
+
+printf "Do you need wifi (y/n):"
+# if else here
+
+#gnome install
+echo "grabing gnome"
+pacman -S gnome gdm
+systemctl enable gdm
+
+reboot
+
+elif [[ "$_run_phase2_flag" == "false" ]]; then
   # Check if the user is root
   if [ "$EUID" -ne 0 ]; then
     # Proceed with root check failure
@@ -62,16 +86,19 @@ if [[ "$_run_phase2_flag" == "false" ]]; then
   (1): Pick a disk and format style 
   (2): Wipe a disk for use"
   read diskopti
-  if ["$diskopti" -eq "1"];
-    then
-      lsblk
-      printf "Enter the disk name (e.g. sda for /dev/sda):"
-      read diskname
+  if [[ "$diskopti" =~ ^[1]$ ]];
+  then
+	  clear
+	  lsblk
+	  printf "Pick your disk (eg. sda):"
+	  read diskname
     else
-      printf "disk wipe not done yet :("
-      sleep 3
       clear
-      exit
+      lsblk
+      printf "Pick a disk to erase (eg. sda):"
+      read diskname
+      wipefs -a -f /dev/"$diskname"
+      clear
     fi
     
   echo "Disk partitoning has started. Auto is the only option right now."
@@ -103,14 +130,14 @@ EOF
   clear
   printf "Starting mkfs..."
   # Partitoning number
-  str1="1"
-  str2="2"
-  str3="3"
-  mkfs.fat -F 32 /dev/"$disk""$str1"
+  str1=1
+  str2=2
+  str3=3
+  mkfs.fat -F 32 /dev/"$diskname""$str1"
 
-  mkswap /dev/"$disk""$str2"
+  mkswap /dev/"$diskname""$str2"
 
-  mkfs.ext4 -F /dev/"$disk""$str3"
+  mkfs.ext4 -F /dev/"$diskname""$str3"
 
   clear
 
@@ -119,11 +146,11 @@ EOF
   clear
   printf "Attempting mount..."
 
-  mount /dev/"$disk""$str3" /mnt
+  mount /dev/"$diskname""$str3" /mnt
 
-  mount --mkdir /dev/"$disk""$str1" /mnt/boot
+  mount --mkdir /dev/"$diskname""$str1" /mnt/boot
 
-  swapon /dev/"$disk""$str2"
+  swapon /dev/"$diskname""$str2"
   sleep 2
   clear
   echo "Mount complete..."
@@ -247,16 +274,15 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
   echo "Grub install started..."
   pacman -S grub efibootmgr
   clear
-  sleep 3
+  sleep 2
   grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-  sleed 3
+  sleep 2
   grub-mkconfig -o /boot/grub/grub.cfg
   clear
 
   #rootpass with passwd
   echo "Root password:"
   passwd
-  sleep 1
   clear
 
   #adduser and passwd for that user
@@ -264,5 +290,10 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
   read user
   useradd -m -G wheel -s /bin/bash $user
   passwd $user
+  clear
+
+  #Triger 3 setup
+  mkdir phase3
+  echo "temp file for addos triger if its still here feel free to remove it allong with this directory" >> /phase3/triger.txt
 
 fi
