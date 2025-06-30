@@ -34,6 +34,10 @@ AddOS is an installation script that creates a customized Arch Linux derivative,
         wget https://github.com/add2wsd/addos/releases/download/latest/addosinstall.sh
         chmod +x addosinstall.sh
         ```
+        **After reboot log back into your root user and run**
+        ```bash
+        /mnt/addosinstall.sh
+        ```
     *   **Offline Method (using Arch ISO USB):**
         1.  **On your current computer:** Download the `addosinstall.sh` script from the [Releases tab](https://github.com/add2wsd/addos/releases).
         2.    Copy this script file directly to the **root directory** of your Arch Linux installation USB drive (the same drive you'll boot from).
@@ -47,11 +51,11 @@ AddOS is an installation script that creates a customized Arch Linux derivative,
             chmod +x addosinstall.sh
             ```
 
-2.  **Run the script as root:**
+3.  **Run the script as root:**
     ```bash
     sudo ./addosinstall.sh
     ```
-3.  **Confirm proceeding:** The script will prompt you to confirm due to its beta status and potential for system breakage. Type `y` to continue.
+4.  **Confirm proceeding:** The script will prompt you to confirm due to its beta status and potential for system breakage. Type `y` to continue.
 
 ## ✨ Features (Current Beta)
 
