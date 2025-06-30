@@ -25,7 +25,14 @@ ufw enable
 systemctl start NetworkManager
 
 printf "Do you need wifi (y/n):"
-# if else here
+read neednetwork
+ if [[ "$neednetwork" =~ ^[Yy]$ ]];
+ then
+	 nmcli device wifi list
+	 printf "Whats your ssid:"
+	 read netname 
+	 nmcli device wif connect $netname
+ fi
 
 #gnome install
 echo "grabing gnome"
@@ -128,11 +135,18 @@ EOF
   lsblk
   sleep 2
   clear
-  printf "Starting mkfs..."
-  # Partitoning number
+  printf "Partition with nvme in mind? (y/n):"
+  read nvmemode
+  if [[ ! "$REPLY" =~ ^[Yy]$ ]]; then
   str1=1
   str2=2
   str3=3
+else
+	str1="p1"
+	str2="p2"
+	str3="p3"
+fi
+  printf "Starting mkfs..."
   mkfs.fat -F 32 /dev/"$diskname""$str1"
 
   mkswap /dev/"$diskname""$str2"
