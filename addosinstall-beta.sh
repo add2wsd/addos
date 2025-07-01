@@ -104,13 +104,21 @@ elif [[ "$_run_phase2_flag" == "false" ]]; then
       lsblk
       printf "Pick a disk to erase (eg. sda):"
       read diskname
-      wipefs -a -f /dev/"$diskname"
+      blkdiscard -f /dev/"$diskname"
       clear
     fi
     
-  echo "Disk partitoning has started. Auto is the only option right now."
+  echo "Pick your disk partition style
+  (1)Basic partition 1G boot 4G swap leftover root
+  (2)Home partition included 16G root
+  (---YOU-CAN-PICK-PARTITION-SIZE---)
+  (3)Basic user config
+  (4)Home user config 
+  "
+read partstyle
   sleep 4
-  
+if [[ "$partstyle" =~ ^[1]$ ]];
+then	
   # fdisk script for the basic partitioning
   fdisk /dev/"$diskname" <<EOF
 g
@@ -128,11 +136,35 @@ n
 
 w
 EOF
-  # Next part of the install: mkfs
-  # This is an echo instead of printf because it looks better when displayed.
-  clear
-  
-  #Auto part disks
+
+else 
+	fdisk /dev/"$diskname" <<EOF
+g
+n
+
+
++1G
+n
+
+
++4G
+n
+
+
++16G
+n
+
+
+
+w
+EOF
+fi
+clear
+
+#part tag
+if [[ "$partstyle" =~ ^[1]$ ]];
+then
+  #Auto part disks for basic
   echo "Auto Partitioning is complete..."
   lsblk
   sleep 3
@@ -149,7 +181,30 @@ else
 	str3="p3"
 fi
 
-  #mkfs 
+else 
+  #Auto part disks for home
+  echo "Auto Partitioning is complete..."
+  lsblk
+  sleep 3
+  clear
+  printf "Partition with nvme in mind? (y/n):"
+  read nvmemode
+  if [[ ! "$nvmemode" =~ ^[Yy]$ ]]; then
+  str1=1
+  str2=2
+  str3=3
+  str4=4
+else
+	str1="p1"
+	str2="p2"
+	str3="p3"
+	str4="p4"
+    fi
+fi
+  
+if [[ "$partstyle" =~ ^[1]$ ]];
+then
+  #mkfs basic
   printf "Starting mkfs..."
   mkfs.fat -F 32 /dev/"$diskname""$str1"
   mkswap /dev/"$diskname""$str2"
@@ -158,14 +213,39 @@ fi
   printf "mkfs is complete."
   sleep 4
   clear
-
-  #Mount disk
+else
+  #mkfs home
+  printf "Starting mkfs..."
+  mkfs.fat -F 32 /dev/"$diskname""$str1"
+  mkswap /dev/"$diskname""$str2"
+  mkfs.ext4 -F /dev/"$diskname""$str3"
+  mkfs.ext4 -F /dev/"$diskname""$str4"
+  clear
+  printf "mkfs is complete."
+  sleep 4
+  clear
+ fi
+  
+if [[ "$partstyle" =~ ^[1]$ ]];
+then
+  #Mount disk basic
   printf "Attempting mount..."
   mount /dev/"$diskname""$str3" /mnt
   mount --mkdir /dev/"$diskname""$str1" /mnt/boot
   swapon /dev/"$diskname""$str2"
   sleep 2
   clear
+else
+  #Mount disk home
+  printf "Attempting mount..."
+  mount /dev/"$diskname""$str3" /mnt
+  mount --mkdir /dev/"$diskname""$str1" /mnt/boot
+  mount --mkdir /dev/"$diskname""$str4" /mnt/home
+  swapon /dev/"$diskname""$str2"
+  sleep 2
+  clear
+fi
+  
   echo "Mount complete..."
   echo "There is a 6-second delay; the script is still running."
   lsblk
