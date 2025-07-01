@@ -110,6 +110,7 @@ elif [[ "$_run_phase2_flag" == "false" ]]; then
     
   echo "Disk partitoning has started. Auto is the only option right now."
   sleep 4
+  
   # fdisk script for the basic partitioning
   fdisk /dev/"$diskname" <<EOF
 g
@@ -130,14 +131,15 @@ EOF
   # Next part of the install: mkfs
   # This is an echo instead of printf because it looks better when displayed.
   clear
+  
+  #Auto part disks
   echo "Auto Partitioning is complete..."
-  sleep 1
   lsblk
-  sleep 2
+  sleep 3
   clear
   printf "Partition with nvme in mind? (y/n):"
   read nvmemode
-  if [[ ! "$REPLY" =~ ^[Yy]$ ]]; then
+  if [[ ! "$nvmemode" =~ ^[Yy]$ ]]; then
   str1=1
   str2=2
   str3=3
@@ -146,24 +148,21 @@ else
 	str2="p2"
 	str3="p3"
 fi
+
+  #mkfs 
   printf "Starting mkfs..."
   mkfs.fat -F 32 /dev/"$diskname""$str1"
-
   mkswap /dev/"$diskname""$str2"
-
   mkfs.ext4 -F /dev/"$diskname""$str3"
-
   clear
-
   printf "mkfs is complete."
   sleep 4
   clear
+
+  #Mount disk
   printf "Attempting mount..."
-
   mount /dev/"$diskname""$str3" /mnt
-
   mount --mkdir /dev/"$diskname""$str1" /mnt/boot
-
   swapon /dev/"$diskname""$str2"
   sleep 2
   clear
@@ -172,6 +171,7 @@ fi
   lsblk
   sleep 6
   clear
+  
   # If else for wifi if connection is needed eg vm or ethernet
   # Probably should add something in the future telling the user if they have internet set up already, and are going to use it in their install theu should press Y
   printf "Enable Wi-Fi? Type N if you have ethernet or are using a virtual machine with network passthrough. (y/N):"
@@ -200,27 +200,25 @@ fi
   fi
   clear
 
-  # There is no benifit to this part; just looks nice.
-  echo "Disk partition: Done."
-  sleep 2
-  echo "mkfs: Done."
-  sleep 3
-  echo "Mount: Done."
+  #Pacman reflector
   echo "Grabing pacman repos"
   pacman -Sy pacman-contrib
   sleep 5
   rankmirrors -n 6 /etc/pacman.d/mirrorlist
-  cat /etc/pacman.d/mirrorlist
-  sleep 4
   clear
+
+  #pacstrap
   echo "Starting pactrap..."
   sleep 4
-  pacstrap /mnt base linux linux-firmware
+  pacstrap -K /mnt base linux linux-firmware
+  clear
 
+  #Genfstab
   genfstab -U /mnt >> /mnt/etc/fstab
   clear
   printf "Chrooting into installed system."
-
+  sleep 4
+  clear
   # Create /mnt/mnt for chroot
 cp addosinstall-beta.sh /mnt/mnt
 chmod +x /mnt/mnt/addosinstall-beta.sh
@@ -228,6 +226,10 @@ arch-chroot /mnt /mnt/addosinstall-beta.sh --chrooted
   # --- PHASE 1 LOGIC ENDS HERE ---
 #exit and reboot should comence after stage2 aka chroot
 umount -R /mnt
+clear
+echo "Chroot done base system installed."
+echo "After reboot log into root and run /mnt/addosinstall.sh"
+read -n 1 -s -r -p "Remove this install media and press any key to reboot..."
 reboot
 
 fi
@@ -238,17 +240,20 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
   echo "Next stage started for addos"
   sleep 4
 
-  # Set timezone
+  # Set country
   echo "Pick your country (e.g., America):"
   ls /usr/share/zoneinfo/
   read region
-
+  clear
+  
+  # Set region
   echo "Pick your city (e.g., New_York):"
   ls /usr/share/zoneinfo/"$region"
   read city
-
-  ln -sf /usr/share/zoneinfo/"$region"/"$city" /etc/localtime
-  sleep 2
+  clear
+  l
+  n -sf /usr/share/zoneinfo/"$region"/"$city" /etc/localtime
+  sleep 1
   hwclock --systohc
 
   # Set locale
@@ -261,10 +266,13 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
   sleep 3
   clear
   locale-gen
-  
+
+  #Keymap
   echo "What is your keybord example (e.g., us)"
   read keymap
   clear
+  
+  #Hostname
   echo "What is your hostname"
   read hostname
   clear
@@ -274,9 +282,11 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
   printf "/etc/ files created"
   sleep 3
   clear
+  
   # Mkinitcpio
   mkinitcpio -P
   clear
+  
   #extra pkg install
   echo "additional pakages are going to install like: sudo networkmanager vim and ufw"
   printf "additional pakages you want installed: "
