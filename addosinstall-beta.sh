@@ -241,18 +241,18 @@ if [[ "$_run_phase2_flag" == "true" ]]; then
   sleep 4
 
   # Set country
-  echo "Pick your country (e.g., America):"
   ls /usr/share/zoneinfo/
+  echo "Pick your country (e.g., America):"
   read region
   clear
   
   # Set region
-  echo "Pick your city (e.g., New_York):"
   ls /usr/share/zoneinfo/"$region"
+  echo "Pick your city (e.g., New_York):"
   read city
   clear
-  l
-  n -sf /usr/share/zoneinfo/"$region"/"$city" /etc/localtime
+  
+  ln -sf /usr/share/zoneinfo/"$region"/"$city" /etc/localtime
   sleep 1
   hwclock --systohc
 
