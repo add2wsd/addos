@@ -327,9 +327,9 @@ sleep 4
 clear
 
 #Create /mnt/mnt for chroot
-cp addosinstall-beta.sh /mnt/mnt
-chmod +x /mnt/mnt/addosinstall-beta.sh
-arch-chroot /mnt /mnt/addosinstall-beta.sh --chrooted
+cp addosinstall.sh /mnt/mnt
+chmod +x /mnt/mnt/addosinstall.sh
+arch-chroot /mnt /mnt/addosinstall.sh --chrooted
 # --- PHASE 1 LOGIC ENDS HERE ---
 
 #exit and reboot should comence after stage2 aka chroot
