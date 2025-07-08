@@ -12,7 +12,6 @@ fi
 # --- PHASE 1 & 3 LOGIC STARTS HERE ---
 if [ -f /phase3/triger.txt ];
 then
-	printf "phase 3 not done yet but soon :("
 	#Start on system boot
 	systemctl enable ufw
 	systemctl enable NetworkManager
@@ -29,12 +28,19 @@ then
 	 nmcli device wifi list
 	 printf "Whats your ssid:"
 	 read netname
-	 nmcli device wif connect $netname
+	 nmcli device wif connect $netname --ask
 fi
 	#gnome install
 	echo "grabing gnome"
 	pacman -S gnome gdm
 	systemctl enable gdm
+	
+	#Clean addos install script and dirs
+	clear
+	echo "addos cleaning"
+	cd /
+	rm -r /phase3
+	rm -- "$0"
 	reboot
 elif [[ "$_run_phase2_flag" == "false" ]];
 then
@@ -112,6 +118,7 @@ echo "Pick your disk partition style
 (---YOU-CAN-PICK-PARTITION-SIZE---)
 (3)Basic user config
 (4)Home user config"
+printf "(1/2/3/4):"
 read partstyle
 sleep 4
 
@@ -295,10 +302,8 @@ then
 	#Find network and prepare connect
 	printf "What's your network SSID? Double-check this:"
 	read network
-	printf "What's your network password:"
-	read netpass
 	#iwctl connects to network
-	iwctl station "$wifi" connect "$network" --passphrase "$netpass"
+	iwctl station "$wifi" connect "$network"
 fi
 clear
 #Pacman reflector
