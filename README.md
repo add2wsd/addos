@@ -17,7 +17,8 @@
 AddOS is an installation script that creates a customized Arch Linux derivative, just because Arch considers installation scripts that are not ArchInstall a derivative of Arch.
 
 > [!WARNING]
-> This installer is in its beta phase. Features are missing, and it can potentially break your system. Confirmations before dangerous actions do not exist at this point. **Use at your own risk.**
+> This installer is in its beta phase. Features are missing, and it can potentially break your system. Confirmations before dangerous actions have been partially implemented but some or all still do not exist at this point. **Use at your own risk.**
+> Addos may move development on gnome to somthing more modable like sway or hyprland gnome will **continue** to be a option
 
 ## 📋 Requirements
 
@@ -71,9 +72,10 @@ AddOS is an installation script that creates a customized Arch Linux derivative,
 - [X] Install base packages with pacstrap
 
 ### Development path
-- [ ] Disk warning
+beta 1.0 done
+- [X] Disk warning
 - [X] Disk selection
-- [ ] Partition style
+- [X] Partition style
 - [X] Auto file system
 - [X] Disk mounting
 - [X] Quick WI-FI setup
@@ -83,8 +85,13 @@ AddOS is an installation script that creates a customized Arch Linux derivative,
 - [X] Locales set up script
 - [X] /etc/ files
 - [X] ramfs
-- [ ] Extra pkgs 
+- [X] Extra pkgs 
 - [X] Password and user creation
+
+### Development path beta 1.1
+- [ ] more DE and configeration options
+- [ ] security hardening with apparmor
+- [ ] --more-soon--
 
 ## 🧑‍💻 Creators
 
