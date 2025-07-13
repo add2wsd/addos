@@ -18,6 +18,8 @@ AddOS is an installation script that creates a customized Arch Linux derivative,
 
 > [!WARNING]
 > This installer is in its beta phase. Features are missing, and it can potentially break your system. Confirmations before dangerous actions have been partially implemented but some or all still do not exist at this point. **Use at your own risk.**
+
+>[ALSO]
 > Addos may move development on gnome to somthing more modable like sway or hyprland gnome will **continue** to be a option
 
 ## 📋 Requirements
