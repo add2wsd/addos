@@ -30,20 +30,34 @@ then
 	 read netname
 	 nmcli device wif connect $netname --ask
 fi
-	#gnome install
-	echo "grabing gnome"
-	pacman -S gnome gdm
-	systemctl enable gdm
-	
-	#Clean addos install script and dirs
-	clear
-	echo "addos cleaning"
-	cd /
-	rm -r /phase3
-	rm -- "$0"
-	reboot
+#gnome install
+clear
+echo "grabing gnome"
+pacman -S gnome gdm
+systemctl enable gdm
+clear
+
+#Installing flatpak apps
+echo "Installing flatpak apps"
+flatpak install flathub io.github.ungoogled_software.ungoogled_chromium	com.mattjakeman.ExtensionManager
+
+#gnome extensions
+gnome-extensions install blur-my-shell@aunetx
+gnome-extensions install runcat@kolesnikov.se
+gnome-extensions install caffeine@patapon.info
+
+
+#Clean addos install script and dirs
+clear
+echo "addos cleaning"
+cd /
+rm -r /phase3
+rm -- "$0"
+reboot
+
 elif [[ "$_run_phase2_flag" == "false" ]];
 then
+
 #Check if the user is root
 if [ "$EUID" -ne 0 ]; then
 	#Proceed with root check failure
@@ -82,45 +96,21 @@ echo "| With the help of LandenHM                    |"
 echo "+==============================================+"
 read -n 1 -s -r -p "Press any key to continue..."
 loadkeys us
-#Disk selection
-clear
-#--re-wright-inprog--
-echo "Warning both options erase data backup all important data before continuing"
-echo "I am not lyable for data loss you have been warned"
 
-#Start disk partition or disk wipe (start)
-echo "If you have a wiped disk pick 1 need to wipe your disk pick 2"
-echo "(1): Pick a disk and format style" 
-echo "(2): Wipe a disk for use"
-printf "(1/2):"
-read diskopti
-if [[ "$diskopti" =~ ^[1]$ ]];
+#Addos dependencys
+pacman -Sy
+pacman -S dialog pacman-contrib
+
+diskname=$(dialog --menu --output-fd 1 Selectpartition: 20 40 4 $(lsblk -n -d --output NAME,TYPE)) 
+wipetrue=$(dialog --checklist --output-fd 1 "Mark the box for disk eraser and that you understand all data will be destroid" 20 40 4 1 "Mark this box (use space)" 2)
+
+if [[ "$wipetrue" =~ ^[1]$ ]];
 then
 	clear
-	lsblk
-	printf "Pick your disk (eg. sda):"
-	read diskname
-	clear
-else
-	clear
-	lsblk
-	printf "Pick a disk to erase (eg. sda):"
-	read diskname
 	blkdiscard -f /dev/"$diskname"
-	clear
+	partstyle=$(dialog --menu --output-fd 1 "Partition style:" 15 55 4 1 "Basic partition 1G boot 4G swap leftover root" 2 "Home partition included 16G root")
+clear
 fi
-#Start disk partition or disk wipe (end)
-
-#pick disk partition style and start (start)
-echo "Pick your disk partition style
-(1)Basic partition 1G boot 4G swap leftover root
-(2)Home partition included 16G root
-(---YOU-CAN-PICK-PARTITION-SIZE---)
-(3)Basic user config
-(4)Home user config"
-printf "(1/2/3/4):"
-read partstyle
-sleep 4
 
 if [[ "$partstyle" =~ ^[1]$ ]];
 then	
@@ -281,42 +271,19 @@ fi
 #Mount disk (end)
 
 echo "Mount complete..."
-echo "There is a 6-second delay; the script is still running."
-lsblk
-sleep 6
+lsblk -n
+sleep 3
 clear
-#--re-wright-inprog--
-# If else for wifi if connection is needed eg vm or ethernet
-# Probably should add something in the future telling the user if they have internet set up already, and are going to use it in their install theu should press Y
-printf "Enable Wi-Fi? Type N if you have ethernet or are using a virtual machine with network passthrough. (y/N):"
-read neednetwork
-if [[ "$neednetwork" =~ ^[Yy]$ ]];
-then
-	#Next up is networking
-	ip link
-	printf "Pick your network interface:"
-	read wifi
-	#Show networks
-	iwctl station "$wifi" scan
-	iwctl station "$wifi" get-networks
-	#Find network and prepare connect
-	printf "What's your network SSID? Double-check this:"
-	read network
-	#iwctl connects to network
-	iwctl station "$wifi" connect "$network"
-fi
-clear
-#Pacman reflector
-echo "Grabing pacman repos"
-pacman -Sy pacman-contrib
-sleep 5
+
+echo "preparing for pacstrap..."
 rankmirrors -n 6 /etc/pacman.d/mirrorlist
+sleep 3
 clear
 
 #pacstrap
 echo "Starting pactrap..."
 sleep 4
-pacstrap -K /mnt base linux linux-firmware
+pacstrap -K /mnt base linux linux-firmware dialog
 clear
 
 #Genfstab
@@ -326,10 +293,15 @@ printf "Chrooting into installed system."
 sleep 4
 clear
 
-#Create /mnt/mnt for chroot
-cp addosinstall.sh /mnt/mnt
+sleep 10
+
+#transfer files
+cp -r /root/addos/shell-extensions /mnt
+cp /root/addos/addosinstall.sh /mnt/mnt
 chmod +x /mnt/mnt/addosinstall.sh
 arch-chroot /mnt /mnt/addosinstall.sh --chrooted
+
+sleep 10
 # --- PHASE 1 LOGIC ENDS HERE ---
 
 #exit and reboot should comence after stage2 aka chroot
@@ -348,78 +320,70 @@ echo "Next stage started for addos"
 sleep 4
 
 #Set country
-ls /usr/share/zoneinfo/
-echo "Pick your country (e.g., America):"
-read region
+dirprint=$(ls -1 /usr/share/zoneinfo/ | awk '{print $0, NR}' | awk '{print $0, NR}')
+region=$(dialog --checklist --output-fd 1 test 30 30 30 $dirprint)
 clear
 
 #Set region
-ls /usr/share/zoneinfo/"$region"
-echo "Pick your city (e.g., New_York):"
-read city
+dirprint=$(ls -1 /usr/share/zoneinfo/"$region" | awk '{print $0, NR}' | awk '{print $0, NR}')
+city=$(dialog --checklist --output-fd 1 test 30 30 30 $dirprint)
 clear 
 ln -sf /usr/share/zoneinfo/"$region"/"$city" /etc/localtime
 sleep 1
 hwclock --systohc
 
 #Set locale
-printf "What is your UTF-8 locale (e.g., en_CA.UTF-8): "
-read UTF8
-
-#Patch locale
-echo "Enabling $UTF8 in /etc/locale.gen..."
+UTF8=$(dialog --inputbox --output-fd 1 "What is your UTF-8 locale (e.g., en_CA.UTF-8):" 10 40)
+clear
 sed -i "/^#\s*${UTF8}/s/^#\s*//" /etc/locale.gen
-sleep 3
-clear
 locale-gen
-
-#Keymap
-echo "What is your keybord example (e.g., us)"
-read keymap
 clear
 
-#Hostname
-echo "What is your hostname"
-read hostname
-clear
-echo "LANG=$UTF8" >> /etc/locale.conf
-echo "KEYMAP=$keymap" >> /etc/vconsole.conf
-echo "$hostname" >> /etc/hostname
-printf "/etc/ files created"
-sleep 3
-clear  
-
-#Mkinitcpio
-mkinitcpio -P
-clear
 
 #extra pkg install
-echo "additional pakages are going to install like: sudo networkmanager vim and ufw"
-printf "additional pakages you want installed: "
-read extra
-pacman -S sudo networkmanager vim ufw $extra  
+extra=$(dialog --inputbox --output-fd 1 "additional pakages you want installed:" 10 40)
+pacman -S sudo networkmanager vim ufw flatpak $extra
+clear
 
 #Grub install and .cfg file
-clear
 echo "Grub install started..."
 pacman -S grub efibootmgr
-clear
-sleep 2
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-sleep 2
 grub-mkconfig -o /boot/grub/grub.cfg
 clear
 
 #rootpass with passwd
-echo "Root password"
-passwd
+rootpass=$(dialog --inputbox --output-fd 1 "root password:" 10 40)
+clear
+sleep 2
+passwd <<EOF
+$rootpass
+$rootpass
+EOF
+sleep 2
 clear
 
+#Keymap
+keymap=$(dialog --inputbox --output-fd 1 "What is your keybord example (e.g., us)" 10 40)
+
+#Hostname
+hostname=$(dialog --inputbox --output-fd 1 "Hostname:" 10 40)
+echo "LANG=$UTF8" >> /etc/locale.conf
+echo "KEYMAP=$keymap" >> /etc/vconsole.conf
+echo "$hostname" >> /etc/hostname
+clear
+printf "/etc/ files created"
+sleep 3
+clear 
+
 #adduser and passwd for that user
-printf "Username for user:"
-read user
+user=$(dialog --inputbox --output-fd 1 "username:" 10 40)
 useradd -m -G wheel -s /bin/bash $user
-passwd $user
+password=$(dialog --inputbox --output-fd 1 "password:" 10 40)
+passwd $user <<EOF
+$password
+$password
+EOF
 clear
 
 #Triger 3 setup

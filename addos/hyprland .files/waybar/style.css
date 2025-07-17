@@ -1,0 +1,131 @@
+* {
+  font-family: "3270 Nerd Font", "Font Awesome 6 Free", "Font Awesome 6 Free Solid";
+  font-size: 19.5px;
+  border-radius: 0;
+  min-height: 0;
+  border: none;
+  font-weight: bold;
+}
+
+#workspaces{
+  background-color: rgb(184, 189, 177);
+  border: none;
+  box-shadow: none;
+}
+
+#tray{
+  margin: 6px 3px;
+  background-color: rgb(184, 189, 177);
+  padding: 6px 12px; /* 保持内部间距 */
+  border-radius: 6px;
+  border-width: 0px;
+}
+
+#waybar {
+  background-color: #b8bdb1;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+#window,
+#clock,
+#custom-power,
+#custom-reboot,
+#bluetooth,
+#battery,
+#pulseaudio,
+#backlight,
+#custom-temperature,
+#memory,
+#cpu,
+#network,
+#custom-lock{
+  border-radius: 4px;
+  margin: 6px 3px;
+  padding: 6px 12px;
+  background-color: #1e1e2e;
+  color: #181825;
+}
+
+#clock {
+  background-color: #89b4fa;
+}
+#custom-power{
+  background-color: #ab3124;
+}
+#custom-reboot{
+  background-color: #11ab09;
+}
+#bluetooth{
+  background-color: #4641ab;
+}
+#battery{
+  background-color: #ff6f00;
+}
+#pulseaudio{
+  background-color: #00b5b2;
+}
+#backlight{
+  background-color: #8a8988;
+}
+#custom-temperature{
+  background-color: #8a8988;
+}
+#memory{
+  background-color: #710082;
+}
+#cpu{
+  background-color: #820016;
+}
+#network{
+  background-color: #00e016;
+}
+#custom-lock{
+  background-color: #383cab;
+}
+#window{
+  background-color: #6b6b6a;
+}
+
+#waybar.hidden {
+  opacity: 0.5;
+}
+
+#workspaces button {
+  all: initial;
+  /* Remove GTK theme values (waybar #1351) */
+  min-width: 0;
+  /* Fix weird spacing in materia (waybar #450) */
+  box-shadow: inset 0 -3px transparent;
+  /* Use box-shadow instead of border so the text isn't offset */
+  padding: 6px 18px;
+  margin: 6px 3px;
+  border-radius: 4px;
+  background-color: rgba(36, 36, 52, 1.0);
+  color: #cdd6f4;
+}
+
+#workspaces button.active {
+  color: #1e1e2e;
+  background-color: #cdd6f4;
+}
+
+#workspaces button:hover {
+  box-shadow: inherit;
+  text-shadow: inherit;
+  color: #1e1e2e;
+  background-color: #cdd6f4;
+}
+
+tooltip {
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #131822;
+  color: #C0C0C0;
+}
+
+tooltip label {
+  padding: 5px;
+  background-color: #131822;
+  color: #C0C0C0;
+}
