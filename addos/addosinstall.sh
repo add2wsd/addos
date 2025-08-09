@@ -8,6 +8,48 @@ else
 	#Set a flag to indicate Phase 1 execution
 	_run_phase2_flag=false
 fi
+# --- addos welcome ---
+if [ -f /phase4/triger.txt ];
+then
+echo "welcome to addos"
+echo "if you want later configs updtae scripts will be availible in releases"
+read -n 1 -s -r -p "Press any key to continue..."
+
+#pickup DE and mod
+if [ -f /phase4/gnome.txt ];
+then
+	echo "gnome install"
+else
+	echo "gnome not configering"
+fi
+
+if [ -f /phase4/hypr.txt ];
+then
+	clear
+	user=$(dialog --inputbox --output-fd 1 "username:" 10 40)
+	echo "hypr configs"
+	cd /home/"$user"/.config
+	rm -r hypr
+	cd /hyprland-config-files
+	cp -r /hypr /home/"$user"/.config/hyprs
+	cd /etc/waybar
+	rm -r #waybar config
+	cd /hyprland-config-files
+	cp -r /waybar #waybar dir
+	cd
+else
+	echo "hypr not configering"
+fi
+
+if [ -f /phase4/gnome.txt ];
+then
+	clear
+	user=$(dialog --inputbox --output-fd 1 "username:" 10 40)
+	echo "gnome config"
+else
+	echo "gnome not configering"
+fi
+fi
 
 # --- PHASE 1 & 3 LOGIC STARTS HERE ---
 if [ -f /phase3/triger.txt ];
@@ -30,29 +72,43 @@ then
 	 read netname
 	 nmcli device wif connect $netname --ask
 fi
-#gnome install
-clear
-echo "grabing gnome"
-pacman -S gnome gdm
-systemctl enable gdm
-clear
+
+cd /
+mkdir phase4
+echo "temp file for addos triger if its still here feel free to remove it allong with this directory" >> /phase4/triger.txt
+cd 
+deske=$(dialog --checklist --output-fd 1 "Desktop envierments:" 20 40 4 1 "Gnome" 1 2 "Hyperland" 2 3 "Gnome-vinila" 3)
+if [[ "$deske" =~ [1] ]]; 
+then
+	clear
+	echo "grabing gnome"
+	pacman -S gnome gdm
+	systemctl enable gdm
+	echo "gnome update marker dont remove if you plan on using addos update scripts" >> /phase4/gnome.txt
+else
+  echo "gnome not installing"
+fi
+
+if [[ "$deske" =~ [2] ]]; 
+then
+	clear
+	echo "grabing hyprland"
+	pacman -S hyprland kitty gdm waybar
+	systemctl enable gdm
+	echo "hypr update marker dont remove if you plan on using addos update scripts" >> /phase4/hypr.txt
+else
+  echo "hyprland not installing"
+fi
 
 #Installing flatpak apps
 echo "Installing flatpak apps"
 flatpak install flathub io.github.ungoogled_software.ungoogled_chromium	com.mattjakeman.ExtensionManager
-
-#gnome extensions
-gnome-extensions install blur-my-shell@aunetx
-gnome-extensions install runcat@kolesnikov.se
-gnome-extensions install caffeine@patapon.info
-
 
 #Clean addos install script and dirs
 clear
 echo "addos cleaning"
 cd /
 rm -r /phase3
-rm -- "$0"
 reboot
 
 elif [[ "$_run_phase2_flag" == "false" ]];
@@ -98,6 +154,7 @@ read -n 1 -s -r -p "Press any key to continue..."
 loadkeys us
 
 #Addos dependencys
+clear
 pacman -Sy
 pacman -S dialog pacman-contrib
 
@@ -296,10 +353,18 @@ clear
 sleep 10
 
 #transfer files
-cp -r /root/addos/shell-extensions /mnt
+cp -r /root/addos/hyprland-config-files /mnt
+cp -r /root/addos/addos-start.service /mnt/etc/systemd/system
 cp /root/addos/addosinstall.sh /mnt/mnt
 chmod +x /mnt/mnt/addosinstall.sh
 arch-chroot /mnt /mnt/addosinstall.sh --chrooted
+
+#transfer ranked mirrors
+clear
+echo "transfering mirror list to installed system"
+sleep 4
+cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+sleep 5
 
 sleep 10
 # --- PHASE 1 LOGIC ENDS HERE ---
