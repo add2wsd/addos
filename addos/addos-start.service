@@ -1,0 +1,8 @@
+[Unit]
+Description=addos-start
+
+[Service]
+ExecStart=/addosinstall.sh
+
+[Install]
+WantedBy=multi-user.target
