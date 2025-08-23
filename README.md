@@ -19,8 +19,8 @@ AddOS is an installation script that creates a customized Arch Linux derivative,
 > [!WARNING]
 > This installer is in its beta phase. Features are missing, and it can potentially break your system. Confirmations before dangerous actions have been partially implemented but some or all still do not exist at this point. **Use at your own risk.**
 
->[ALSO]
-> Addos may move development on gnome to somthing more modable like sway or hyprland gnome will **continue** to be a option
+> [!NOTE]
+> AddOS may move development on GNOME to somthing more extendable like Sway or Hyprland. GNOME will **continue** to be an option.
 
 ## 📋 Requirements
 
@@ -62,37 +62,26 @@ AddOS is an installation script that creates a customized Arch Linux derivative,
 
 ## ✨ Features (Current Beta)
 
-- [X] Checks for root privileges.
-- [X] Verifies the operating system is Arch Linux.
-- [ ] Seperate branch for Artix Linux.
-- [X] Provides a clear warning about its alpha status and potential risks before proceeding.
+- [X] Verifies the system is correct
+- [ ] Seperate branch for Artix Linux
+- [X] Provides warnings
 - [X] Disk selection
-- [X] Automatic partitioning
-- [X] Automatic file systems
-- [X] Automatic mounting
+- [X] Automatic setup
 - [X] WI-FI setup if needed
 - [X] Install base packages with pacstrap
 
 ### Development path
-beta 1.0 done
-- [X] Disk warning
-- [X] Disk selection
 - [X] Partition style
-- [X] Auto file system
 - [X] Disk mounting
-- [X] Quick WI-FI setup
-- [X] Pacstrap base pkgs
 - [X] fstab setup
 - [X] arch-chroot system setup
-- [X] Locales set up script
+- [X] Locales
 - [X] /etc/ files
 - [X] ramfs
 - [X] Extra pkgs 
-- [X] Password and user creation
-
-### Development path beta 1.1
-- [ ] more DE and configeration options
-- [ ] security hardening with apparmor
+- [X] User setup
+- [ ] More DE and configuration options
+- [ ] Security hardening
 - [ ] --more-soon--
 
 ## 🧑‍💻 Creators
