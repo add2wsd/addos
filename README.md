@@ -11,7 +11,7 @@
   <a href="https://github.com/add2wsd/addos/commits/main"><img src="https://img.shields.io/github/last-commit/add2wsd/addos?style=flat-square" alt="Last Commit"></a>
 </p>
 <p align="center">
-  <a href="https://github.com/add2wsd/addos/stargazers"><img src="https://img.shields.io/github/stars/add2wsd/addos?style=for-the-badge&color=yellow" alt="GitHub Stars"></a>
+  <a href="https://github.com/add2wsd/addos/stargazers"><img src="https://img.shields.io/github/stars/add2wsd/addos?style=for-the-badge&label=%F0%9F%8C%9FSTARS&color=yellow" alt="GitHub Stars"></a>
 </p>
 
 AddOS is an installation script that creates a customized Arch Linux derivative, just because Arch considers installation scripts that are not ArchInstall a derivative of Arch.
