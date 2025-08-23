@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="./logo.png" alt="AddOS Logo">
+  <img src="./logo.png" alt="AddOS Logo" width="200">
 </p>
-<h1 align="center">AddOS - Linux 'Distro'</h1>
+<h1 align="center">AddOS - LhDistro'</h1>
 <p align="center">
-  <a href="https://github.com/add2wsd/addos/tree/main"><img src="https://img.shields.io/badge/base-Arch_Linux-blue?style=flat-square&logo=Arch%20Linux" alt="Base"></a>
+  <a href="https://github.com/add2wsd/addos/tree/main"><img src="https://img.simg.ss.io/badge/base-Arch_Linux-blue?stimg.shielsquare&logo=Arch%Archnstyl%20x" alt="Base"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://github.com/add2wsd/addos"><img src="https://img.shields.io/badge/status-Beta-yellow?style=flat-square" alt="Status"></a>
     &nbsp;&nbsp;&nbsp;&nbsp;
