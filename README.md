@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="./logo.png" alt="AddOS Logo" width="200">
+</p>
 <h1 align="center">AddOS - Linux 'Distro'</h1>
 <p align="center">
   <a href="https://github.com/add2wsd/addos/tree/main"><img src="https://img.shields.io/badge/base-Arch_Linux-blue?style=flat-square&logo=Arch%20Linux" alt="Base"></a>
