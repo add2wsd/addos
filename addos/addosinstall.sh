@@ -12,7 +12,7 @@ fi
 if [ -f /phase4/triger.txt ];
 then
 echo "welcome to addos"
-echo "if you want later configs updtae scripts will be availible in releases"
+echo "if you want later configs updated scripts will be availible in releases"
 read -n 1 -s -r -p "Press any key to continue..."
 
 #pickup DE and mod
@@ -63,7 +63,7 @@ then
 	ufw enable
 	#Turn networkmanager on
 	systemctl start NetworkManager
-	printf "Do you need wifi (y/n):"
+	printf "Do you need wifi (Y/n):"
 	read neednetwork
 if [[ "$neednetwork" =~ ^[Yy]$ ]];
 then
@@ -102,7 +102,7 @@ fi
 
 #Installing flatpak apps
 echo "Installing flatpak apps"
-flatpak install flathub io.github.ungoogled_software.ungoogled_chromium	com.mattjakeman.ExtensionManager
+flatpak install flathub io.github.ungoogled_software.ungoogled_chromium	com.mattjakeman.ExtensionManager io.gitlab.librewolf-community
 
 #Clean addos install script and dirs
 clear
@@ -404,28 +404,15 @@ sed -i "/^#\s*${UTF8}/s/^#\s*//" /etc/locale.gen
 locale-gen
 clear
 
-
 #extra pkg install
 extra=$(dialog --inputbox --output-fd 1 "additional pakages you want installed:" 10 40)
-pacman -S sudo networkmanager vim ufw flatpak $extra
+pacman -S sudo networkmanager neovim ufw flatpak grub efibootmgr $extra
 clear
 
-#Grub install and .cfg file
-echo "Grub install started..."
-pacman -S grub efibootmgr
+#Grub .cfg file
+echo "Bootloader setup..."
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
-clear
-
-#rootpass with passwd
-rootpass=$(dialog --inputbox --output-fd 1 "root password:" 10 40)
-clear
-sleep 2
-passwd <<EOF
-$rootpass
-$rootpass
-EOF
-sleep 2
 clear
 
 #Keymap
@@ -449,6 +436,17 @@ passwd $user <<EOF
 $password
 $password
 EOF
+clear
+
+#rootpass with passwd
+rootpass=$(dialog --inputbox --output-fd 1 "root password:" 10 40)
+clear
+sleep 2
+passwd <<EOF
+$rootpass
+$rootpass
+EOF
+sleep 2
 clear
 
 #Triger 3 setup
